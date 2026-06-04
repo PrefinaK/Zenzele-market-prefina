@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Success Stories – Zenzele Smart Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* ── Page-specific only — no overrides to style.css ── */
+    .stories-hero {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 60%, #0d1b4f 100%);
+      padding: 64px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .stories-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(245,197,24,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .stories-hero .hero-pill {
+      display: inline-block;
+      background: rgba(245,197,24,0.15);
+      border: 1px solid rgba(245,197,24,0.4);
+      color: var(--gold);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 18px;
+      letter-spacing: 0.05em;
+    }
+    .stories-hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+    .stories-hero h1 em { color: var(--gold); font-style: normal; }
+    .stories-hero p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Impact stats strip ── */
+    .impact-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .impact-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide: var(--border);
+    }
+    .impact-cell {
+      padding: 32px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .impact-cell:last-child { border-right: none; }
+    .impact-cell:hover { background: var(--off-white); }
+    .impact-icon { font-size: 1.8rem; display: block; margin-bottom: 8px; }
+    .impact-num {
+      font-family: var(--font-head);
+      font-size: 2.4rem;
+      font-weight: 800;
+      display: block;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .impact-num.gold   { color: var(--gold); }
+    .impact-num.green  { color: var(--green); }
+    .impact-num.purple { color: var(--purple-light); }
+    .impact-num.red    { color: var(--red); }
+    .impact-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Stories section ── */
+    .stories-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 52px 24px 64px;
+    }
+    .stories-section .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .stories-section h2 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--purple);
+    }
+    .stories-section .sub-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 22px;
+    }
+
+    /* ── Story card — uses existing .section-card base + additions ── */
+    .story-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .story-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--gold);
+    }
+    .story-card-header {
+      background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .story-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: rgba(245,197,24,0.18);
+      border: 2px solid rgba(245,197,24,0.35);
+      color: var(--gold);
+      font-size: 1.3rem;
+      font-weight: 800;
+      font-family: var(--font-head);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .story-name {
+      color: var(--white);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+    .story-business {
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+    .story-body { padding: 18px 18px 14px; flex: 1; }
+    .story-tag {
+      display: inline-block;
+      background: rgba(26,5,51,0.07);
+      color: var(--purple-light);
+      border: 1px solid rgba(91,45,158,0.2);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 10px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+    .story-quote {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+      padding-left: 14px;
+      border-left: 3px solid var(--gold);
+      font-style: italic;
+    }
+    .story-footer {
+      padding: 10px 18px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+    .story-location::before { content: '📍 '; }
+
+    /* ── Featured story (spans 2 cols on wide screens) ── */
+    .story-card.featured {
+      grid-column: span 2;
+      flex-direction: row;
+    }
+    .story-card.featured .story-card-header {
+      width: 200px;
+      flex-shrink: 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .story-card.featured .story-avatar { width: 64px; height: 64px; font-size: 1.6rem; }
+    .story-card.featured .story-body { padding: 22px; }
+    .story-card.featured .story-quote { font-size: 0.95rem; }
+    .featured-badge {
+      background: rgba(245,197,24,0.18);
+      border: 1px solid rgba(245,197,24,0.4);
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+
+    /* ── CTA banner ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--purple-mid), #0d1b4f);
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .cta-banner p {
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 28px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 0.95rem;
+    }
+    .cta-banner .btn-primary { margin: 6px; }
+    .cta-banner .btn-ghost   { margin: 6px; }
+
+    @media (max-width: 700px) {
+      .impact-inner { grid-template-columns: repeat(2, 1fr); }
+      .impact-cell:nth-child(2) { border-right: none; }
+      .story-card.featured { grid-column: span 1; flex-direction: column; }
+      .story-card.featured .story-card-header { width: 100%; flex-direction: row; text-align: left; }
+    }
+    @media (max-width: 480px) {
+      .impact-inner { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR (matches index.html exactly) ────────────────────────────────── -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-z">Z</span>enzele <span class="logo-tag">Smart Market</span>
+    </a>
+    <div class="nav-links">
+      <a href="pages/explore.html">Explore</a>
+      <a href="success-stories.html" style="color:var(--gold);font-weight:600">Stories</a>
+      <a href="pages/login.html">Login</a>
+      <a href="pages/register.html" class="btn-nav">Join Free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+<section class="stories-hero">
+  <span class="hero-pill">🌍 Community Impact · Real Stories</span>
+  <h1>Where <em>Hustle</em> Meets<br/>Recognition.</h1>
+  <p>Real entrepreneurs. Real results. See how Zenzele Smart Market is transforming lives across Africa and beyond.</p>
+</section>
+
+<!-- ── IMPACT STATS ──────────────────────────────────────────────────────── -->
+<div class="impact-strip">
+  <div class="impact-inner">
+    <div class="impact-cell">
+      <span class="impact-icon">🏢</span>
+      <span class="impact-num green" id="n-businesses">0</span>
+      <span class="impact-label">Businesses Supported</span>
+    </div>
+    <div class="impact-cell">
+      <span class="impact-icon">💰</span>
+      <span class="impact-num gold" id="n-donations">0</span>
+      <span class="impact-label">Donations Made</span>
+    </div>
+    <div class="impact-cell">
+      <span class="impact-icon">🎯</span>
+      <span class="impact-num purple" id="n-opportunities">0</span>
+      <span class="impact-label">Opportunities Found</span>
+    </div>
+    <div class="impact-cell">
+      <span class="impact-icon">👥</span>
+      <span class="impact-num red" id="n-members">0</span>
+      <span class="impact-label">Active Members</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── STORIES ────────────────────────────────────────────────────────────── -->
+<section class="stories-section">
+  <div class="section-header">
+    <h2>🌟 Community Stories</h2>
+    <span class="sub-note">Updated regularly · Real people, verified results</span>
+  </div>
+  <div class="stories-grid" id="stories-grid">
+    <!-- Rendered by JS -->
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+<div class="cta-banner">
+  <h2>🏅 Ready to Write Your Own Story?</h2>
+  <p>Join the growing community of entrepreneurs building their future on Zenzele Smart Market.</p>
+  <a href="pages/register.html" class="btn-primary">Join Free Today</a>
+  <a href="pages/explore.html"  class="btn-ghost">Explore Entrepreneurs</a>
+</div>
+
+<!-- ── FOOTER (matches index.html) ──────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <strong>Zenzele Smart Market</strong><br/>
+      <small>Be Self-Reliant. Built on Cardano.</small>
+    </div>
+    <div>
+      <a href="https://zenzelesmartmarket.co" target="_blank">Website</a>
+      <a href="https://github.com/wimsio/zenzelesmartmarket" target="_blank">GitHub</a>
+      <a href="pages/about.html">About</a>
+    </div>
+    <div>
+      <small>CTO: Bernard Sibanda · +27 73 182 0631</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── STATS — update these numbers before demo ──────────────────────────────
+const STATS = {
+  businesses:    142,
+  donations:      87,
+  opportunities: 310,
+  members:       528,
+};
+
+// ── STORIES — edit or add entries here ───────────────────────────────────
+// Set featured:true on ONE story to make it span wide (first one recommended)
+const STORIES = [
+  {
+    name:     'Amara Dube',
+    business: 'Amara Crafts',
+    category: 'Crafts & Art',
+    location: 'Soweto, GP',
+    date:     'Jan 2025',
+    featured: true,
+    quote:    'Through Zenzele I found my first 3 wholesale clients within weeks of joining. My monthly revenue grew from R800 to R6 500 in just four months. The platform gave me visibility I could never afford on my own.',
+  },
+  {
+    name:     'Sipho Nkosi',
+    business: 'Fresh Harvest Box',
+    category: 'Agriculture',
+    location: 'Durban, KZN',
+    date:     'Feb 2025',
+    featured: false,
+    quote:    'I listed my veggie subscription service and landed 25 subscribers within two weeks. Zenzele changed my life.',
+  },
+  {
+    name:     'Fatima Hassan',
+    business: "Fatima's Alterations",
+    category: 'Fashion & Clothing',
+    location: 'Cape Town, WC',
+    date:     'Mar 2025',
+    featured: false,
+    quote:    'The marketplace connected me with a local fashion brand that now sends me bulk work every month.',
+  },
+  {
+    name:     'Thandi Mokoena',
+    business: 'TM Catering Services',
+    category: 'Food & Catering',
+    location: 'Pretoria, GP',
+    date:     'Apr 2025',
+    featured: false,
+    quote:    'Within 30 days I had 4 corporate clients booked. My catering business finally has a steady pipeline.',
+  },
+  {
+    name:     'Lethabo Sithole',
+    business: 'LethaTech Solutions',
+    category: 'Technology',
+    location: 'Johannesburg, GP',
+    date:     'May 2025',
+    featured: false,
+    quote:    'Listing my IT support services gave me visibility I never had before. I now have 11 recurring clients.',
+  },
+  {
+    name:     'Nomsa Dlamini',
+    business: 'Nomsa Hair Studio',
+    category: 'Beauty & Wellness',
+    location: 'Bloemfontein, FS',
+    date:     'Jun 2025',
+    featured: false,
+    quote:    'After posting my salon services, bookings tripled. I was able to hire my first assistant within 6 weeks.',
+  },
+];
+
+// ── Counter animation ─────────────────────────────────────────────────────
+function animateTo(elId, target) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const duration = 1600;
+  const t0 = performance.now();
+  (function tick(now) {
+    const p    = Math.min((now - t0) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * ease).toLocaleString();
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+
+// ── Initials from name ────────────────────────────────────────────────────
+function initials(name) {
+  return name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+}
+
+// ── Render story cards ────────────────────────────────────────────────────
+function renderStories() {
+  const grid = document.getElementById('stories-grid');
+  grid.innerHTML = STORIES.map(s => {
+    if (s.featured) {
+      return `
+        <div class="story-card featured">
+          <div class="story-card-header">
+            <div class="story-avatar">${initials(s.name)}</div>
+            <div>
+              <div class="story-name">${s.name}</div>
+              <div class="story-business">🏪 ${s.business}</div>
+              <span class="featured-badge" style="margin-top:8px;display:inline-block">⭐ Featured</span>
+            </div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;">
+            <div class="story-body">
+              <span class="story-tag">${s.category}</span>
+              <p class="story-quote">${s.quote}</p>
+            </div>
+            <div class="story-footer">
+              <span class="story-location">${s.location}</span>
+              <span>${s.date}</span>
+            </div>
+          </div>
+        </div>`;
+    }
+    return `
+      <div class="story-card">
+        <div class="story-card-header">
+          <div class="story-avatar">${initials(s.name)}</div>
+          <div>
+            <div class="story-name">${s.name}</div>
+            <div class="story-business">🏪 ${s.business}</div>
+          </div>
+        </div>
+        <div class="story-body">
+          <span class="story-tag">${s.category}</span>
+          <p class="story-quote">${s.quote}</p>
+        </div>
+        <div class="story-footer">
+          <span class="story-location">${s.location}</span>
+          <span>${s.date}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Trigger counter animation when stats strip scrolls into view
+  const strip = document.querySelector('.impact-strip');
+  let animated = false;
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !animated) {
+      animated = true;
+      animateTo('n-businesses',    STATS.businesses);
+      animateTo('n-donations',     STATS.donations);
+      animateTo('n-opportunities', STATS.opportunities);
+      animateTo('n-members',       STATS.members);
+    }
+  }, { threshold: 0.3 });
+  observer.observe(strip);
+
+  renderStories();
+});
+</script>
+</body>
+</html>
