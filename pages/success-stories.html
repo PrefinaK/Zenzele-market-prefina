@@ -1,514 +1,703 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Success Stories – Zenzele Smart Market</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"/>
   <style>
-    /* ── Page-specific only — no overrides to style.css ── */
-    .stories-hero {
-      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 60%, #0d1b4f 100%);
-      padding: 64px 24px 56px;
+    :root {
+      --gold: #f5c518;
+      --purple: #1a0533;
+      --purple-mid: #2d0d5e;
+      --purple-light: #7b3fe4;
+      --green: #00c896;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --off-white: #f8f9fa;
+      --radius: 14px;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: #f4f0ff; color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 50%, #0d1b4f 100%);
+      padding: 80px 24px 60px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-    .stories-hero::before {
+    .hero::before {
       content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(245,197,24,0.07) 0%, transparent 70%);
-      pointer-events: none;
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(123,63,228,0.3) 0%, transparent 60%),
+                  radial-gradient(circle at 70% 30%, rgba(0,200,150,0.15) 0%, transparent 50%);
     }
-    .stories-hero .hero-pill {
+    .hero-inner { position: relative; max-width: 700px; margin: 0 auto; }
+    .hero-tag {
       display: inline-block;
       background: rgba(245,197,24,0.15);
       border: 1px solid rgba(245,197,24,0.4);
       color: var(--gold);
-      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       padding: 6px 16px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      margin-bottom: 18px;
-      letter-spacing: 0.05em;
+      border-radius: 50px;
+      margin-bottom: 20px;
     }
-    .stories-hero h1 {
+    .hero h1 {
       font-family: var(--font-head);
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 800;
-      color: var(--white);
-      margin-bottom: 14px;
+      color: white;
       line-height: 1.15;
+      margin-bottom: 16px;
     }
-    .stories-hero h1 em { color: var(--gold); font-style: normal; }
-    .stories-hero p {
-      color: rgba(255,255,255,0.75);
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      color: rgba(255,255,255,0.7);
       font-size: 1rem;
       max-width: 500px;
       margin: 0 auto;
       line-height: 1.7;
     }
 
-    /* ── Impact stats strip ── */
-    .impact-strip {
-      background: var(--white);
+    /* ── Stats band ── */
+    .stats-band {
+      background: white;
       border-bottom: 1px solid var(--border);
       padding: 0;
     }
-    .impact-inner {
-      max-width: 1000px;
+    .stats-band-inner {
+      max-width: 960px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       divide: var(--border);
     }
-    .impact-cell {
-      padding: 32px 20px;
+    .stat-item {
+      padding: 28px 20px;
       text-align: center;
       border-right: 1px solid var(--border);
-      transition: background 0.2s;
+      position: relative;
     }
-    .impact-cell:last-child { border-right: none; }
-    .impact-cell:hover { background: var(--off-white); }
-    .impact-icon { font-size: 1.8rem; display: block; margin-bottom: 8px; }
-    .impact-num {
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
       font-family: var(--font-head);
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      display: block;
+      color: var(--purple-light);
       line-height: 1;
       margin-bottom: 4px;
     }
-    .impact-num.gold   { color: var(--gold); }
-    .impact-num.green  { color: var(--green); }
-    .impact-num.purple { color: var(--purple-light); }
-    .impact-num.red    { color: var(--red); }
-    .impact-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
+    .stat-num span { color: var(--gold); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
 
-    /* ── Stories section ── */
-    .stories-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 52px 24px 64px;
-    }
-    .stories-section .section-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .stories-section h2 {
+    /* ── Main content ── */
+    .page-body { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── Section heading ── */
+    .section-head { margin-bottom: 28px; }
+    .section-head h2 {
       font-family: var(--font-head);
       font-size: 1.6rem;
       font-weight: 800;
       color: var(--purple);
+      margin-bottom: 6px;
     }
-    .stories-section .sub-note {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-    .stories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 22px;
-    }
+    .section-head p { font-size: 0.88rem; color: var(--text-muted); }
 
-    /* ── Story card — uses existing .section-card base + additions ── */
-    .story-card {
-      background: var(--white);
-      border: 1px solid var(--border);
+    /* ── Featured story ── */
+    .featured-story {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
       border-radius: var(--radius);
+      padding: 40px;
+      margin-bottom: 40px;
+      color: white;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.3s;
-      display: flex;
-      flex-direction: column;
     }
-    .story-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--gold);
-    }
-    .story-card-header {
-      background: linear-gradient(135deg, var(--purple), var(--purple-mid));
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .story-avatar {
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      background: rgba(245,197,24,0.18);
-      border: 2px solid rgba(245,197,24,0.35);
-      color: var(--gold);
-      font-size: 1.3rem;
-      font-weight: 800;
+    .featured-story::before {
+      content: '"';
+      position: absolute;
+      top: -20px; right: 30px;
+      font-size: 200px;
       font-family: var(--font-head);
-      display: flex;
+      color: rgba(255,255,255,0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .featured-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .story-name {
-      color: var(--white);
-      font-family: var(--font-head);
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 2px;
-    }
-    .story-business {
+      gap: 6px;
+      background: rgba(245,197,24,0.2);
+      border: 1px solid rgba(245,197,24,0.5);
       color: var(--gold);
-      font-size: 0.78rem;
-      font-weight: 500;
-    }
-    .story-body { padding: 18px 18px 14px; flex: 1; }
-    .story-tag {
-      display: inline-block;
-      background: rgba(26,5,51,0.07);
-      color: var(--purple-light);
-      border: 1px solid rgba(91,45,158,0.2);
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 2px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
-    .story-quote {
+    .featured-story h3 {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .featured-story p {
       font-size: 0.9rem;
       line-height: 1.7;
-      color: var(--text);
-      padding-left: 14px;
-      border-left: 3px solid var(--gold);
-      font-style: italic;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 20px;
     }
-    .story-footer {
-      padding: 10px 18px 14px;
+    .story-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .story-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .story-author strong { font-size: 0.88rem; display: block; }
+    .story-author span { font-size: 0.76rem; color: rgba(255,255,255,0.6); }
+    .featured-impact {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 24px 28px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .impact-num {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .impact-label { font-size: 0.76rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+    /* ── Story grid ── */
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .story-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .story-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(123,63,228,0.12);
+    }
+    .story-card-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
+      align-items: flex-start;
+      margin-bottom: 14px;
     }
-    .story-location::before { content: '📍 '; }
-
-    /* ── Featured story (spans 2 cols on wide screens) ── */
-    .story-card.featured {
-      grid-column: span 2;
-      flex-direction: row;
-    }
-    .story-card.featured .story-card-header {
-      width: 200px;
-      flex-shrink: 0;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 10px;
-    }
-    .story-card.featured .story-avatar { width: 64px; height: 64px; font-size: 1.6rem; }
-    .story-card.featured .story-body { padding: 22px; }
-    .story-card.featured .story-quote { font-size: 0.95rem; }
-    .featured-badge {
-      background: rgba(245,197,24,0.18);
-      border: 1px solid rgba(245,197,24,0.4);
-      color: var(--gold);
+    .story-emoji { font-size: 2rem; }
+    .story-tag {
       font-size: 0.68rem;
       font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
       padding: 3px 10px;
       border-radius: 50px;
     }
-
-    /* ── CTA banner ── */
-    .cta-banner {
-      background: linear-gradient(135deg, var(--purple-mid), #0d1b4f);
-      padding: 56px 24px;
-      text-align: center;
-    }
-    .cta-banner h2 {
+    .tag-donation { background: #d1fae5; color: #065f46; }
+    .tag-nft      { background: #ede9fe; color: #5b21b6; }
+    .tag-job      { background: #fef3c7; color: #92400e; }
+    .tag-growth   { background: #fee2e2; color: #991b1b; }
+    .tag-mentor   { background: #e0f2fe; color: #0369a1; }
+    .story-card h4 {
       font-family: var(--font-head);
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: var(--white);
-      margin-bottom: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 8px;
+      line-height: 1.3;
     }
-    .cta-banner p {
-      color: rgba(255,255,255,0.72);
-      margin-bottom: 28px;
-      max-width: 460px;
-      margin-left: auto;
-      margin-right: auto;
-      font-size: 0.95rem;
+    .story-card p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
     }
-    .cta-banner .btn-primary { margin: 6px; }
-    .cta-banner .btn-ghost   { margin: 6px; }
+    .story-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .person-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--off-white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .person-info strong { font-size: 0.78rem; display: block; color: var(--text); }
+    .person-info span   { font-size: 0.7rem; color: var(--text-muted); }
+    .story-stat {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--green);
+    }
 
-    @media (max-width: 700px) {
-      .impact-inner { grid-template-columns: repeat(2, 1fr); }
-      .impact-cell:nth-child(2) { border-right: none; }
-      .story-card.featured { grid-column: span 1; flex-direction: column; }
-      .story-card.featured .story-card-header { width: 100%; flex-direction: row; text-align: left; }
+    /* ── Impact timeline ── */
+    .timeline { margin-bottom: 48px; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: flex-start;
     }
-    @media (max-width: 480px) {
-      .impact-inner { grid-template-columns: 1fr 1fr; }
+    .timeline-dot {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      position: relative;
     }
+    .timeline-dot::after {
+      content: '';
+      position: absolute;
+      top: 48px; left: 50%;
+      transform: translateX(-50%);
+      width: 2px; height: 20px;
+      background: var(--border);
+    }
+    .timeline-item:last-child .timeline-dot::after { display: none; }
+    .timeline-content {
+      background: white;
+      border-radius: 10px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+    }
+    .timeline-content h4 {
+      font-family: var(--font-head);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 4px;
+    }
+    .timeline-content p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+    .timeline-date { font-size: 0.7rem; color: var(--text-muted); margin-top: 6px; }
+
+    /* ── CTA ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--purple-light) 0%, var(--purple-mid) 100%);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      color: white;
+    }
+    .cta-band h2 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .cta-band p { font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--purple);
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 50px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      font-weight: 600;
+      padding: 11px 28px;
+      border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .stats-band-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
+      .featured-story { grid-template-columns: 1fr; }
+      .featured-impact { display: none; }
+    }
+
+    /* ── Counter animation ── */
+    @keyframes countUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .stat-num { animation: countUp 0.6s ease both; }
+    .stat-item:nth-child(1) .stat-num { animation-delay: 0.1s; }
+    .stat-item:nth-child(2) .stat-num { animation-delay: 0.2s; }
+    .stat-item:nth-child(3) .stat-num { animation-delay: 0.3s; }
+    .stat-item:nth-child(4) .stat-num { animation-delay: 0.4s; }
   </style>
 </head>
 <body>
 
-<!-- ── NAVBAR (matches index.html exactly) ────────────────────────────────── -->
 <nav class="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="logo">
-      <span class="logo-z">Z</span>enzele <span class="logo-tag">Smart Market</span>
-    </a>
+    <a href="../index.html" class="logo"><span class="logo-z">Z</span>enzele <span class="logo-tag">Smart Market</span></a>
     <div class="nav-links">
-      <a href="pages/explore.html">Explore</a>
-      <a href="success-stories.html" style="color:var(--gold);font-weight:600">Stories</a>
-      <a href="pages/login.html">Login</a>
-      <a href="pages/register.html" class="btn-nav">Join Free</a>
+      <a href="dashboard.html">← Dashboard</a>
+      <a href="explore.html">Explore</a>
     </div>
   </div>
 </nav>
 
-<!-- ── HERO ──────────────────────────────────────────────────────────────── -->
-<section class="stories-hero">
-  <span class="hero-pill">🌍 Community Impact · Real Stories</span>
-  <h1>Where <em>Hustle</em> Meets<br/>Recognition.</h1>
-  <p>Real entrepreneurs. Real results. See how Zenzele Smart Market is transforming lives across Africa and beyond.</p>
-</section>
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">🌍 Community Impact</div>
+    <h1>Real People.<br/><span>Real Stories.</span></h1>
+    <p>Every profile on Zenzele Smart Market is a story of hustle, resilience, and community. Here's what happens when entrepreneurs get supported.</p>
+  </div>
+</div>
 
-<!-- ── IMPACT STATS ──────────────────────────────────────────────────────── -->
-<div class="impact-strip">
-  <div class="impact-inner">
-    <div class="impact-cell">
-      <span class="impact-icon">🏢</span>
-      <span class="impact-num green" id="n-businesses">0</span>
-      <span class="impact-label">Businesses Supported</span>
+<!-- Stats band -->
+<div class="stats-band">
+  <div class="stats-band-inner">
+    <div class="stat-item">
+      <div class="stat-num" id="statBusinesses">0</div>
+      <div class="stat-label">Businesses Supported</div>
     </div>
-    <div class="impact-cell">
-      <span class="impact-icon">💰</span>
-      <span class="impact-num gold" id="n-donations">0</span>
-      <span class="impact-label">Donations Made</span>
+    <div class="stat-item">
+      <div class="stat-num" id="statDonations">₳0</div>
+      <div class="stat-label">ADA Donated</div>
     </div>
-    <div class="impact-cell">
-      <span class="impact-icon">🎯</span>
-      <span class="impact-num purple" id="n-opportunities">0</span>
-      <span class="impact-label">Opportunities Found</span>
+    <div class="stat-item">
+      <div class="stat-num" id="statOpportunities">0</div>
+      <div class="stat-label">Opportunities Found</div>
     </div>
-    <div class="impact-cell">
-      <span class="impact-icon">👥</span>
-      <span class="impact-num red" id="n-members">0</span>
-      <span class="impact-label">Active Members</span>
+    <div class="stat-item">
+      <div class="stat-num" id="statNFTs">0</div>
+      <div class="stat-label">NFTs Minted</div>
     </div>
   </div>
 </div>
 
-<!-- ── STORIES ────────────────────────────────────────────────────────────── -->
-<section class="stories-section">
-  <div class="section-header">
-    <h2>🌟 Community Stories</h2>
-    <span class="sub-note">Updated regularly · Real people, verified results</span>
-  </div>
-  <div class="stories-grid" id="stories-grid">
-    <!-- Rendered by JS -->
-  </div>
-</section>
+<!-- Main body -->
+<div class="page-body">
 
-<!-- ── CTA ───────────────────────────────────────────────────────────────── -->
-<div class="cta-banner">
-  <h2>🏅 Ready to Write Your Own Story?</h2>
-  <p>Join the growing community of entrepreneurs building their future on Zenzele Smart Market.</p>
-  <a href="pages/register.html" class="btn-primary">Join Free Today</a>
-  <a href="pages/explore.html"  class="btn-ghost">Explore Entrepreneurs</a>
+  <!-- Featured story -->
+  <div class="section-head">
+    <h2>⭐ Featured Story</h2>
+    <p>The story that inspired our community this month</p>
+  </div>
+
+  <div class="featured-story">
+    <div>
+      <div class="featured-badge">⭐ Story of the Month</div>
+      <h3>"I went from selling at traffic lights to having my own verified digital business"</h3>
+      <p>After losing my job during the pandemic, I started making candles from home. I joined Zenzele Smart Market and within two weeks, someone from Cape Town found me through the platform and donated ₳50 to help me buy more materials. I now have 3 regular clients and my first NFT certificate.</p>
+      <div class="story-meta">
+        <div class="story-avatar">🕯️</div>
+        <div class="story-author">
+          <strong>Nomsa Dlamini</strong>
+          <span>Handmade Candles · Johannesburg</span>
+        </div>
+      </div>
+    </div>
+    <div class="featured-impact">
+      <div class="impact-num">₳50</div>
+      <div class="impact-label">First Donation</div>
+      <div style="margin-top:16px">
+        <div class="impact-num" style="font-size:1.5rem">3</div>
+        <div class="impact-label">New Clients</div>
+      </div>
+      <div style="margin-top:16px">
+        <div class="impact-num" style="font-size:1.5rem">🏆</div>
+        <div class="impact-label">NFT Certified</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story grid -->
+  <div class="section-head">
+    <h2>💬 Community Stories</h2>
+    <p>Entrepreneurs who took the leap and made it happen</p>
+  </div>
+
+  <div class="story-grid" id="storyGrid">
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <div class="story-emoji">🪡</div>
+        <span class="story-tag tag-job">Job Found</span>
+      </div>
+      <h4>From Unemployed to Booked for 3 Months</h4>
+      <p>A Durban tailor was discovered through Zenzele's Explore page by a school that needed uniforms. One profile, one connection, months of work.</p>
+      <div class="story-card-footer">
+        <div class="story-person">
+          <div class="person-avatar">👗</div>
+          <div class="person-info">
+            <strong>Sipho Mthembu</strong>
+            <span>Tailoring · Durban</span>
+          </div>
+        </div>
+        <div class="story-stat">3mo work</div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <div class="story-emoji">🎵</div>
+        <span class="story-tag tag-nft">NFT Minted</span>
+      </div>
+      <h4>My Music Now Lives Forever on Cardano</h4>
+      <p>I produced my first EP and minted it as an NFT on Zenzele. Now when people donate, they get a piece of history. Blockchain made my hustle permanent.</p>
+      <div class="story-card-footer">
+        <div class="story-person">
+          <div class="person-avatar">🎤</div>
+          <div class="person-info">
+            <strong>Thabo Nkosi</strong>
+            <span>Music Production · Soweto</span>
+          </div>
+        </div>
+        <div class="story-stat">1st NFT</div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <div class="story-emoji">🥗</div>
+        <span class="story-tag tag-donation">Donation</span>
+      </div>
+      <h4>₳100 Changed My Kitchen Business</h4>
+      <p>Someone found my profile on a Thursday. By Sunday they had donated ₳100 ADA. I bought a second pot and now I feed 40 people every day for lunch.</p>
+      <div class="story-card-footer">
+        <div class="story-person">
+          <div class="person-avatar">🍲</div>
+          <div class="person-info">
+            <strong>Lindiwe Khumalo</strong>
+            <span>Food & Catering · Pretoria</span>
+          </div>
+        </div>
+        <div class="story-stat">₳100</div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <div class="story-emoji">📸</div>
+        <span class="story-tag tag-growth">Growth</span>
+      </div>
+      <h4>My Audio Pitch Got Me a Corporate Client</h4>
+      <p>I recorded a 90-second audio pitch about my photography business. A corporate HR manager heard it and booked me for their year-end function.</p>
+      <div class="story-card-footer">
+        <div class="story-person">
+          <div class="person-avatar">📷</div>
+          <div class="person-info">
+            <strong>Zanele Mokoena</strong>
+            <span>Photography · Cape Town</span>
+          </div>
+        </div>
+        <div class="story-stat">R8,000</div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <div class="story-emoji">💻</div>
+        <span class="story-tag tag-mentor">Mentored</span>
+      </div>
+      <h4>From Zero Code to First Freelance Project</h4>
+      <p>I requested coding mentorship through Zenzele. A developer from Johannesburg responded and mentored me for free. I landed my first paid project 6 weeks later.</p>
+      <div class="story-card-footer">
+        <div class="story-person">
+          <div class="person-avatar">🖥️</div>
+          <div class="person-info">
+            <strong>Mandla Sithole</strong>
+            <span>Coding / Tech · East London</span>
+          </div>
+        </div>
+        <div class="story-stat">1st client</div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <div class="story-emoji">🌱</div>
+        <span class="story-tag tag-donation">Donation</span>
+      </div>
+      <h4>My Farm Grew Because of Blockchain</h4>
+      <p>Three donors found my profile and sent a combined ₳200 ADA. I used it to buy seeds for the next season. My family ate better that winter than the last 5 years.</p>
+      <div class="story-card-footer">
+        <div class="story-person">
+          <div class="person-avatar">🌾</div>
+          <div class="person-info">
+            <strong>Moses Dube</strong>
+            <span>Farming · Limpopo</span>
+          </div>
+        </div>
+        <div class="story-stat">₳200</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Impact timeline -->
+  <div class="section-head">
+    <h2>📈 Platform Milestones</h2>
+    <p>How Zenzele Smart Market has grown since launch</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot">🚀</div>
+      <div class="timeline-content">
+        <h4>Platform Launch</h4>
+        <p>Zenzele Smart Market launched with the vision of putting South African entrepreneurs on the Cardano blockchain.</p>
+        <div class="timeline-date">May 2026</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">🔗</div>
+      <div class="timeline-content">
+        <h4>First Real ADA Transaction</h4>
+        <p>The first real testnet donation was sent on Cardano Preprod — proving that township entrepreneurs can receive blockchain payments.</p>
+        <div class="timeline-date">June 2026</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">🏆</div>
+      <div class="timeline-content">
+        <h4>First NFT Minted</h4>
+        <p>The first entrepreneur minted their Business Achievement NFT on Cardano — a permanent, verifiable certificate of hustle.</p>
+        <div class="timeline-date">June 2026</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">🌍</div>
+      <div class="timeline-content">
+        <h4>Service Marketplace Opening</h4>
+        <p>Entrepreneurs can now post their services with images, contact details, and pricing — making it easier than ever to get found.</p>
+        <div class="timeline-date">Coming Soon 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <h2>Your Story Could Be Next</h2>
+    <p>Join thousands of South African entrepreneurs building their digital presence on Cardano blockchain.</p>
+    <div class="cta-buttons">
+      <a href="dashboard.html" class="btn-gold">📊 Go to Dashboard</a>
+      <a href="explore.html" class="btn-outline">🌍 Explore Entrepreneurs</a>
+    </div>
+  </div>
+
 </div>
 
-<!-- ── FOOTER (matches index.html) ──────────────────────────────────────── -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <strong>Zenzele Smart Market</strong><br/>
-      <small>Be Self-Reliant. Built on Cardano.</small>
-    </div>
-    <div>
-      <a href="https://zenzelesmartmarket.co" target="_blank">Website</a>
-      <a href="https://github.com/wimsio/zenzelesmartmarket" target="_blank">GitHub</a>
-      <a href="pages/about.html">About</a>
-    </div>
-    <div>
-      <small>CTO: Bernard Sibanda · +27 73 182 0631</small>
-    </div>
-  </div>
-</footer>
-
+<script src="../js/api-client.js"></script>
+<script src="../js/main.js"></script>
 <script>
-// ── STATS — update these numbers before demo ──────────────────────────────
-const STATS = {
-  businesses:    142,
-  donations:      87,
-  opportunities: 310,
-  members:       528,
-};
+// ── Animate stats from live data or fallback ──────────────────────────────
+async function loadStats() {
+  let businesses = 0, donations = 0, opportunities = 0, nfts = 0;
 
-// ── STORIES — edit or add entries here ───────────────────────────────────
-// Set featured:true on ONE story to make it span wide (first one recommended)
-const STORIES = [
-  {
-    name:     'Amara Dube',
-    business: 'Amara Crafts',
-    category: 'Crafts & Art',
-    location: 'Soweto, GP',
-    date:     'Jan 2025',
-    featured: true,
-    quote:    'Through Zenzele I found my first 3 wholesale clients within weeks of joining. My monthly revenue grew from R800 to R6 500 in just four months. The platform gave me visibility I could never afford on my own.',
-  },
-  {
-    name:     'Sipho Nkosi',
-    business: 'Fresh Harvest Box',
-    category: 'Agriculture',
-    location: 'Durban, KZN',
-    date:     'Feb 2025',
-    featured: false,
-    quote:    'I listed my veggie subscription service and landed 25 subscribers within two weeks. Zenzele changed my life.',
-  },
-  {
-    name:     'Fatima Hassan',
-    business: "Fatima's Alterations",
-    category: 'Fashion & Clothing',
-    location: 'Cape Town, WC',
-    date:     'Mar 2025',
-    featured: false,
-    quote:    'The marketplace connected me with a local fashion brand that now sends me bulk work every month.',
-  },
-  {
-    name:     'Thandi Mokoena',
-    business: 'TM Catering Services',
-    category: 'Food & Catering',
-    location: 'Pretoria, GP',
-    date:     'Apr 2025',
-    featured: false,
-    quote:    'Within 30 days I had 4 corporate clients booked. My catering business finally has a steady pipeline.',
-  },
-  {
-    name:     'Lethabo Sithole',
-    business: 'LethaTech Solutions',
-    category: 'Technology',
-    location: 'Johannesburg, GP',
-    date:     'May 2025',
-    featured: false,
-    quote:    'Listing my IT support services gave me visibility I never had before. I now have 11 recurring clients.',
-  },
-  {
-    name:     'Nomsa Dlamini',
-    business: 'Nomsa Hair Studio',
-    category: 'Beauty & Wellness',
-    location: 'Bloemfontein, FS',
-    date:     'Jun 2025',
-    featured: false,
-    quote:    'After posting my salon services, bookings tripled. I was able to hire my first assistant within 6 weeks.',
-  },
-];
-
-// ── Counter animation ─────────────────────────────────────────────────────
-function animateTo(elId, target) {
-  const el = document.getElementById(elId);
-  if (!el) return;
-  const duration = 1600;
-  const t0 = performance.now();
-  (function tick(now) {
-    const p    = Math.min((now - t0) / duration, 1);
-    const ease = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(target * ease).toLocaleString();
-    if (p < 1) requestAnimationFrame(tick);
-  })(t0);
-}
-
-// ── Initials from name ────────────────────────────────────────────────────
-function initials(name) {
-  return name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
-}
-
-// ── Render story cards ────────────────────────────────────────────────────
-function renderStories() {
-  const grid = document.getElementById('stories-grid');
-  grid.innerHTML = STORIES.map(s => {
-    if (s.featured) {
-      return `
-        <div class="story-card featured">
-          <div class="story-card-header">
-            <div class="story-avatar">${initials(s.name)}</div>
-            <div>
-              <div class="story-name">${s.name}</div>
-              <div class="story-business">🏪 ${s.business}</div>
-              <span class="featured-badge" style="margin-top:8px;display:inline-block">⭐ Featured</span>
-            </div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;">
-            <div class="story-body">
-              <span class="story-tag">${s.category}</span>
-              <p class="story-quote">${s.quote}</p>
-            </div>
-            <div class="story-footer">
-              <span class="story-location">${s.location}</span>
-              <span>${s.date}</span>
-            </div>
-          </div>
-        </div>`;
+  if (typeof BACKEND_LIVE !== 'undefined' && BACKEND_LIVE) {
+    try {
+      // Fetch live stats from backend
+      const res = await fetch(API_BASE + '/stats/platform', {
+        headers: { 'Authorization': 'Bearer ' + (localStorage.getItem('zenzele_token') || '') }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        businesses    = data.businesses    || 0;
+        donations     = data.total_ada     || 0;
+        opportunities = data.opportunities || 0;
+        nfts          = data.nfts          || 0;
+      }
+    } catch(e) {
+      console.warn('Could not load live stats, using defaults');
     }
-    return `
-      <div class="story-card">
-        <div class="story-card-header">
-          <div class="story-avatar">${initials(s.name)}</div>
-          <div>
-            <div class="story-name">${s.name}</div>
-            <div class="story-business">🏪 ${s.business}</div>
-          </div>
-        </div>
-        <div class="story-body">
-          <span class="story-tag">${s.category}</span>
-          <p class="story-quote">${s.quote}</p>
-        </div>
-        <div class="story-footer">
-          <span class="story-location">${s.location}</span>
-          <span>${s.date}</span>
-        </div>
-      </div>`;
-  }).join('');
+  }
+
+  // Fallback / demo values if backend not available
+  if (!businesses)    businesses    = 47;
+  if (!donations)     donations     = 312;
+  if (!opportunities) opportunities = 28;
+  if (!nfts)          nfts          = 19;
+
+  animateCount('statBusinesses', businesses, '');
+  animateCount('statDonations',  donations,  '₳');
+  animateCount('statOpportunities', opportunities, '');
+  animateCount('statNFTs',       nfts,        '');
+}
+
+function animateCount(id, target, prefix) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const duration = 1200;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = prefix + Math.round(eased * target).toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ── Load live community stories if backend available ──────────────────────
+async function loadLiveStories() {
+  if (typeof BACKEND_LIVE === 'undefined' || !BACKEND_LIVE) return;
+  // Could load real user stories from the backend in future
+  // For now the static stories above serve as the showcase
 }
 
 // ── Boot ──────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  // Trigger counter animation when stats strip scrolls into view
-  const strip = document.querySelector('.impact-strip');
-  let animated = false;
-  const observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting && !animated) {
-      animated = true;
-      animateTo('n-businesses',    STATS.businesses);
-      animateTo('n-donations',     STATS.donations);
-      animateTo('n-opportunities', STATS.opportunities);
-      animateTo('n-members',       STATS.members);
-    }
-  }, { threshold: 0.3 });
-  observer.observe(strip);
-
-  renderStories();
-});
+// Small delay so stats animate as user reads
+setTimeout(loadStats, 400);
+loadLiveStories();
 </script>
 </body>
 </html>
