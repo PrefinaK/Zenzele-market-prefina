@@ -75,16 +75,29 @@ function requireMethod(string ...$methods): void {
 
 // ── Auth middleware ───────────────────────────────────────────────────────
 function requireAuth(PDO $pdo): array {
-    $header = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
-    $token  = str_replace('Bearer ', '', $header);
+    // Read token — handles XAMPP Apache header stripping
+    $raw = '';
+    if (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
+        $raw = $_SERVER['HTTP_AUTHORIZATION'];
+    } elseif (!empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+        $raw = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+    } elseif (function_exists('apache_request_headers')) {
+        $hdrs = apache_request_headers();
+        $raw  = $hdrs['Authorization'] ?? $hdrs['authorization'] ?? '';
+    }
+
+    $token = (stripos($raw, 'Bearer ') === 0) ? trim(substr($raw, 7)) : '';
+
     if (!$token) {
         jsonErr('Unauthorized — no token provided. Please log in.', 401);
     }
+
     require_once __DIR__ . '/jwt.php';
     $payload = JWT::decode($token, JWT_SECRET);
     if (!$payload) {
         jsonErr('Unauthorized — token is invalid or expired. Please log in again.', 401);
     }
+
     $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$payload['sub']]);
     $user = $stmt->fetch();
@@ -92,4 +105,5 @@ function requireAuth(PDO $pdo): array {
         jsonErr('Unauthorized — user not found.', 401);
     }
     return $user;
+
 }
